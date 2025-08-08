@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerShooter : MonoBehaviour
 {
@@ -22,7 +21,10 @@ public class PlayerShooter : MonoBehaviour
         Vector3 bulletDirection = (_inputReader.MousePosition - _spawnerBullets.transform.position).normalized;
         bulletDirection.z = 0;
 
-        _spawnerBullets.SpawnBulletWithDirection(bulletDirection);
-        _gunAnimator.TrigerShootAnimator();
+        if (Vector3.Angle(transform.right, bulletDirection) <= 110)
+        {
+            _spawnerBullets.SpawnBulletWithDirection(bulletDirection);
+            _gunAnimator.TrigerShootAnimator();
+        }
     }
 }
