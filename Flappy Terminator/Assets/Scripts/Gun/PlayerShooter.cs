@@ -1,10 +1,11 @@
-using System;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
-public class Gun : MonoBehaviour
+public class PlayerShooter : MonoBehaviour
 {
     [SerializeField] private GunAnimator _gunAnimator;
     [SerializeField] private InputReader _inputReader;
+    [SerializeField] private SpawnerBullets _spawnerBullets;
 
     private void OnEnable()
     {
@@ -17,7 +18,11 @@ public class Gun : MonoBehaviour
     }
 
     private void Shoot()
-    {
+    { 
+        Vector3 bulletDirection = (_inputReader.MousePosition - _spawnerBullets.transform.position).normalized;
+        bulletDirection.z = 0;
+
+        _spawnerBullets.SpawnBulletWithDirection(bulletDirection);
         _gunAnimator.TrigerShootAnimator();
     }
 }

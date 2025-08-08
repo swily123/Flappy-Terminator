@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class InputReader : MonoBehaviour
 {
+    [SerializeField] private Camera _camera;
     [SerializeField] private Texture2D _cursorTexture;
 
     public event Action JumpButtonPressed;
     public event Action LeftButtonClicked;
 
     private KeyCode _jumpButton = KeyCode.Space;
+    public Vector3 MousePosition => _camera.ScreenToWorldPoint(Input.mousePosition);
 
     private void Start()
     {
