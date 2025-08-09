@@ -25,9 +25,10 @@ public class SpawnerEnemies : Spawner<Enemy>
 
     public void DisableAllActiveEnemies()
     {
-        for (int i = 0; i < _activeEnemies.Count; i++)
+        foreach (Enemy activeEnemy in _activeEnemies)
         {
-            DespawnEnemy(_activeEnemies[i]);
+            activeEnemy.DespawnRequested -= DespawnEnemy;
+            ReleaseObject(activeEnemy);
         }
 
         _activeEnemies.Clear();

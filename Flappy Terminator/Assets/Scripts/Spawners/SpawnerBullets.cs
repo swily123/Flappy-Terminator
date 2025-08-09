@@ -20,9 +20,12 @@ public class SpawnerBullets : Spawner<Bullet>
 
     public void DisableAllActiveBullets()
     {
-        for (int i = 0; i < _activeBullets.Count; i++)
+        foreach (Bullet activeBullet in _activeBullets)
         {
-            DespawnBullet(_activeBullets[i]);
+            activeBullet.StopMoving();
+            activeBullet.DespawnRequested -= DespawnBullet;
+            activeBullet.EnemyHitted -= HandlerHit;
+            ReleaseObject(activeBullet);
         }
 
         _activeBullets.Clear();

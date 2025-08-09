@@ -10,6 +10,7 @@ public class EnemyMover : MonoBehaviour
 
     public void Move()
     {
+        _animator.SetMovingAnimation(true);
         _coroutine = StartCoroutine(Moving());
     }
 
@@ -18,15 +19,12 @@ public class EnemyMover : MonoBehaviour
         if (_coroutine != null)
         {
             StopCoroutine(_coroutine);
+            _animator.SetMovingAnimation(false);
         }
-
-        _animator.SetMovingAnimation(false);
     }
 
     private IEnumerator Moving()
     {
-        _animator.SetMovingAnimation(true);
-
         while (enabled)
         {
             transform.Translate(Vector3.left * Time.deltaTime * _speed);
