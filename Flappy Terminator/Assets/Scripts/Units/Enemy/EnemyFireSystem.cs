@@ -22,6 +22,11 @@ public class EnemyFireSystem : MonoBehaviour
         }
     }
 
+    public void ClearBullets()
+    {
+        _spawnerBullets.DisableAllActiveBullets();
+    }
+
     private IEnumerator Shooting(Bird target)
     {
         WaitForSeconds wait = new WaitForSeconds(_shhotDelay);

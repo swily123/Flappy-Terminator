@@ -34,6 +34,11 @@ public class Enemy : MonoBehaviour, IHittable
         _enemyFireSystem.Stop();
     }
 
+    public void DisableBullets()
+    {
+        _enemyFireSystem.ClearBullets();
+    }
+
     private void ActionsOnPlayerDiscovered(Bird bird)
     {
         StartShooting(bird);

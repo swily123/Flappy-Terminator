@@ -9,17 +9,23 @@ public class ScoreCounter : MonoBehaviour
 
     private void OnEnable()
     {
-        _spawnerBullets.EnemyHittedr += IncreaseScore;
+        _spawnerBullets.EnemyHitted += IncreaseScore;
     }
 
     private void OnDisable()
     {
-        _spawnerBullets.EnemyHittedr -= IncreaseScore;
+        _spawnerBullets.EnemyHitted -= IncreaseScore;
     }
 
     private void IncreaseScore()
     {
         _score++;
+        _scoreViewer.ChangeValue(_score);
+    }
+
+    public void Reset()
+    {
+        _score = 0;
         _scoreViewer.ChangeValue(_score);
     }
 }
