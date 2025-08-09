@@ -37,9 +37,8 @@ public class Bullet : MonoBehaviour
         {
             DespawnRequested?.Invoke(this);
         }
-        else if(collision is IHittable hittableObject)
+        else if(collision.TryGetComponent(out IHittable hittableObject))
         {
-            Debug.Log("hit");
             hittableObject.Hit();
             DespawnRequested?.Invoke(this);
         }
