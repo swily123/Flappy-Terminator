@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float _speed;
 
     public event Action<Bullet> DespawnRequested;
+    public event Action EnemyHitted;
 
     private Coroutine _coroutine;
 
@@ -37,8 +38,13 @@ public class Bullet : MonoBehaviour
         {
             DespawnRequested?.Invoke(this);
         }
-        else if(collision.TryGetComponent(out IHittable hittableObject))
+        else if (collision.TryGetComponent(out IHittable hittableObject))
         {
+            if (collision.TryGetComponent<Enemy>(out _))
+            {
+                EnemyHitted?.Invoke();
+            }
+
             hittableObject.Hit();
             DespawnRequested?.Invoke(this);
         }
