@@ -1,18 +1,21 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-
-public class GunAnimator : MonoBehaviour
+namespace Gun
 {
-    private Animator _animtor;
+    [RequireComponent(typeof(Animator))]
 
-    private void Awake()
+    public class GunAnimator : MonoBehaviour
     {
-        _animtor = GetComponent<Animator>();
-    }
+        private Animator _animator;
 
-    public void TrigerShootAnimator()
-    {
-        _animtor.SetTrigger(GunAnimatorData.Params.Shooted);
+        private void Awake()
+        {
+            _animator = GetComponent<Animator>();
+        }
+
+        public void TriggerShootAnimator()
+        {
+            _animator.SetTrigger(GunAnimatorData.Params.Shooted);
+        }
     }
 }

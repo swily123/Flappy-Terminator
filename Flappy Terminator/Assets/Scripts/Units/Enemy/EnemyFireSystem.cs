@@ -1,45 +1,50 @@
 using System.Collections;
 using Spawners;
+using Units.Player;
 using UnityEngine;
 
-public class EnemyFireSystem : MonoBehaviour
+namespace Units.Enemy
 {
-    [SerializeField] private SpawnerBullets _spawnerBullets;
-    [SerializeField] private EnemyAnimator _animator;
-    [SerializeField] private float _shhotDelay;
-
-    private Coroutine _coroutine;
-
-    public void Shoot(Bird bird)
+    public class EnemyFireSystem : MonoBehaviour
     {
-        _coroutine = StartCoroutine(Shooting(bird));
-    }
+        [SerializeField] private SpawnerBullets _spawnerBullets;
+        [SerializeField] private EnemyAnimator _animator;
+        [SerializeField] private float _shootDelay;
 
-    public void Stop()
-    {
-        if (_coroutine != null)
+        private Coroutine _coroutine;
+
+        public void Shoot(Bird bird)
         {
-            StopCoroutine(_coroutine);
+            Stop();
+            _coroutine = StartCoroutine(Shooting(bird));
         }
-    }
 
-    public void ClearBullets()
-    {
-        _spawnerBullets.DisableAllActiveBullets();
-    }
-
-    private IEnumerator Shooting(Bird target)
-    {
-        WaitForSeconds wait = new WaitForSeconds(_shhotDelay);
-
-        while (enabled)
+        public void Stop()
         {
-            _animator.TriggerShoot();
-            Vector3 bulletDirection = (target.transform.position - _spawnerBullets.transform.position).normalized;
-            bulletDirection.z = 0;
-            _spawnerBullets.SpawnBulletWithDirection(bulletDirection);
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+        }
 
-            yield return wait;
+        public void ClearBullets()
+        {
+            _spawnerBullets.DisableAllActiveBullets();
+        }
+
+        private IEnumerator Shooting(Bird target)
+        {
+            WaitForSeconds wait = new WaitForSeconds(_shootDelay);
+
+            while (enabled)
+            {
+                _animator.TriggerShoot();
+                Vector3 bulletDirection = (target.transform.position - _spawnerBullets.transform.position).normalized;
+                bulletDirection.z = 0;
+                _spawnerBullets.SpawnBulletWithDirection(bulletDirection);
+
+                yield return wait;
+            }
         }
     }
 }

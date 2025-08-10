@@ -1,67 +1,80 @@
-using Spawners;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Units.Enemy;
 using UnityEngine;
 
-public class SpawnerEnemies : Spawner<Enemy>
+namespace Spawners
 {
-    [SerializeField] private float _spawnDelay;
-
-    private Coroutine _coroutine;
-    private List<Enemy> _activeEnemies = new List<Enemy>();
-
-    public void StartSpawning()
+    public class SpawnerEnemies : Spawner<Enemy>
     {
-        _coroutine = StartCoroutine(Spawning());
-    }
+        [SerializeField] private float _spawnDelay;
 
-    public void StopSpawning()
-    {
-        if (_coroutine != null)
+        public event Action EnemyHitted;
+    
+        private Coroutine _coroutine;
+        private readonly List<Enemy> _activeEnemies = new List<Enemy>();
+
+        public void StartSpawning()
         {
-            StopCoroutine(_coroutine);
-        }
-    }
-
-    public void DisableAllActiveEnemies()
-    {
-        foreach (Enemy activeEnemy in _activeEnemies)
-        {
-            activeEnemy.DespawnRequested -= DespawnEnemy;
-            ReleaseObject(activeEnemy);
+            StopSpawning();
+            _coroutine = StartCoroutine(Spawning());
         }
 
-        _activeEnemies.Clear();
-    }
-
-    public void DisableAllActiveBulletsEnemies()
-    {
-        foreach (Enemy enemy in _activeEnemies)
+        public void StopSpawning()
         {
-            enemy.DisableBullets();
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
         }
-    }
 
-    public void DespawnEnemy(Enemy enemy)
-    {
-        enemy.DespawnRequested -= DespawnEnemy;
-        ReleaseObject(enemy);
-        _activeEnemies.Remove(enemy);
-    }
-
-    private IEnumerator Spawning()
-    {
-        WaitForSeconds wait = new WaitForSeconds(_spawnDelay);
-
-        while (enabled)
+        public void DisableAllActiveEnemies()
         {
-            yield return wait;
-            Enemy enemy = GetObject();
+            foreach (Enemy activeEnemy in _activeEnemies)
+            {
+                activeEnemy.DespawnRequested -= DespawnEnemy;
+                ReleaseObject(activeEnemy);
+            }
 
-            enemy.StartMoving();
-            enemy.StopShooting();
-            enemy.DespawnRequested += DespawnEnemy;
-            _activeEnemies.Add(enemy);
+            _activeEnemies.Clear();
+        }
+
+        public void DisableAllActiveBulletsEnemies()
+        {
+            foreach (Enemy enemy in _activeEnemies)
+            {
+                enemy.DisableBullets();
+            }
+        }
+
+        private void DespawnEnemy(Enemy enemy)
+        {
+            enemy.DespawnRequested -= DespawnEnemy;
+            ReleaseObject(enemy);
+            _activeEnemies.Remove(enemy);
+        }
+
+        private IEnumerator Spawning()
+        {
+            WaitForSeconds wait = new WaitForSeconds(_spawnDelay);
+
+            while (enabled)
+            {
+                yield return wait;
+                Enemy enemy = GetObject();
+
+                enemy.StartMoving();
+                enemy.DespawnRequested += DespawnEnemy;
+                enemy.BulletCollided += HandlerHit;
+                _activeEnemies.Add(enemy);
+            }
+        }
+
+        private void HandlerHit(Enemy enemy)
+        {
+            EnemyHitted?.Invoke();
+            enemy.BulletCollided -= HandlerHit;
         }
     }
 }

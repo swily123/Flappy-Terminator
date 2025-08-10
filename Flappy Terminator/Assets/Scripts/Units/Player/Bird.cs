@@ -1,36 +1,41 @@
+using Environment;
+using Gun;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-
-public class Bird : MonoBehaviour, IHittable
+namespace Units.Player
 {
-    [SerializeField] private GameInstruction _game;
+    [RequireComponent(typeof(Rigidbody2D))]
 
-    private Rigidbody2D _rigidbody;
-
-    private void Awake()
+    public class Bird : MonoBehaviour
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-    }
+        [SerializeField] private GameInstruction _game;
 
-    public void Hit()
-    {
-        _game.GameOver();
-    }
+        private Rigidbody2D _rigidbody;
 
-    public void Reset()
-    {
-        transform.position = Vector3.zero;
-        transform.rotation = Quaternion.identity;
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = 0;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.transform.TryGetComponent<Platform>(out _))
+        private void Awake()
         {
-            _game.GameOver();
+            _rigidbody = GetComponent<Rigidbody2D>();
+        }
+
+        public void Reset()
+        {
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.identity;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = 0;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.transform.TryGetComponent(out Bullet bullet))
+            {
+                bullet.Collide();
+                _game.GameOver();
+            }
+            else if (collision.transform.TryGetComponent<Platform>(out _))
+            {
+                _game.GameOver();
+            }
         }
     }
 }

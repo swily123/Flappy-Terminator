@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public static class GunAnimatorData
+namespace Gun
 {
-    public static class Params
+    public static class GunAnimatorData
     {
-        public static readonly int Shooted = Animator.StringToHash(nameof(Shooted));
+        public static class Params
+        {
+            public static readonly int Shooted = Animator.StringToHash(nameof(Shooted));
+        }
     }
 }

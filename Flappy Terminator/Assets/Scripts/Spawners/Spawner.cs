@@ -7,19 +7,19 @@ namespace Spawners
     {
         [SerializeField] private T _objectPrefab;
 
-        private int _defualtCapacity = 1;
-        private int _poolMaxSize = 30;
+        private readonly int _defaultCapacity = 1;
+        private readonly int _poolMaxSize = 30;
         private ObjectPool<T> _pool;
 
         private void Awake()
         {
             _pool = new ObjectPool<T>(
-                createFunc: () => Spawn(),
-                actionOnGet: (obj) => ActionOnGet(obj),
-                actionOnRelease: (obj) => ActionOnRelease(obj),
+                createFunc: Spawn,
+                actionOnGet: ActionOnGet,
+                actionOnRelease: ActionOnRelease,
                 actionOnDestroy: (obj) => Destroy(obj.gameObject),
                 collectionCheck: true,
-                defaultCapacity: _defualtCapacity,
+                defaultCapacity: _defaultCapacity,
                 maxSize: _poolMaxSize);
         }
 

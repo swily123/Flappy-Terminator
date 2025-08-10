@@ -188,7 +188,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.02}
@@ -274,7 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spawnerBullets: {fileID: 5761035763307934190}
   _animator: {fileID: -3475644352413486556}
-  _shhotDelay: 2
+  _shootDelay: 3
 --- !u!114 &-3475644352413486556
 MonoBehaviour:
   m_ObjectHideFlags: 0

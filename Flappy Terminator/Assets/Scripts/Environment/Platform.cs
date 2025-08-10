@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class Platform : MonoBehaviour
+namespace Environment
 {
+    public class Platform : MonoBehaviour
+    {
     
+    }
 }

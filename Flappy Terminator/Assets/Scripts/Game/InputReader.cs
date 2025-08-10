@@ -6,12 +6,12 @@ public class InputReader : MonoBehaviour
     public event Action JumpButtonPressed;
     public event Action LeftButtonClicked;
 
-    private KeyCode _jumpButton = KeyCode.Space;
-    private bool _isAviable = true;
+    private readonly KeyCode _jumpButton = KeyCode.Space;
+    private bool _isAvailable = true;
     
     private void Update()
     {
-        if (_isAviable == false)
+        if (_isAvailable == false)
         {
             return;
         }
@@ -29,11 +29,11 @@ public class InputReader : MonoBehaviour
 
     public void StartWorking()
     {
-        _isAviable = true;
+        _isAvailable = true;
     }
 
     public void StopWorking()
     {
-        _isAviable = false;
+        _isAvailable = false;
     }
 }

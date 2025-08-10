@@ -1,32 +1,35 @@
 using Spawners;
 using UnityEngine;
 
-public class ScoreCounter : MonoBehaviour
+namespace ScoreSystem
 {
-    [SerializeField] private SpawnerBullets _spawnerBullets;
-    [SerializeField] private ScoreViewer _scoreViewer;
-
-    private int _score = 0;
-
-    private void OnEnable()
+    public class ScoreCounter : MonoBehaviour
     {
-        _spawnerBullets.EnemyHitted += IncreaseScore;
-    }
+        [SerializeField] private SpawnerEnemies _spawnerEnemies;
+        [SerializeField] private ScoreViewer _scoreViewer;
 
-    private void OnDisable()
-    {
-        _spawnerBullets.EnemyHitted -= IncreaseScore;
-    }
+        private int _score;
 
-    private void IncreaseScore()
-    {
-        _score++;
-        _scoreViewer.ChangeValue(_score);
-    }
+        private void OnEnable()
+        {
+            _spawnerEnemies.EnemyHitted += IncreaseScore;
+        }
 
-    public void Reset()
-    {
-        _score = 0;
-        _scoreViewer.ChangeValue(_score);
+        private void OnDisable()
+        {
+            _spawnerEnemies.EnemyHitted -= IncreaseScore;
+        }
+
+        private void IncreaseScore()
+        {
+            _score++;
+            _scoreViewer.ChangeValue(_score);
+        }
+
+        public void Reset()
+        {
+            _score = 0;
+            _scoreViewer.ChangeValue(_score);
+        }
     }
 }

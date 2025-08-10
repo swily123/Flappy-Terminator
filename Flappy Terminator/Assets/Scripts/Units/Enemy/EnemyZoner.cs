@@ -1,15 +1,19 @@
 using System;
+using Units.Player;
 using UnityEngine;
 
-public class EnemyZoner : MonoBehaviour
+namespace Units.Enemy
 {
-    public event Action<Bird> PlayerEnteredZone;
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class EnemyZoner : MonoBehaviour
     {
-        if (collision.TryGetComponent(out Bird bird))
+        public event Action<Bird> PlayerEnteredZone;
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            PlayerEnteredZone?.Invoke(bird);
+            if (collision.TryGetComponent(out Bird bird))
+            {
+                PlayerEnteredZone?.Invoke(bird);
+            }
         }
     }
 }

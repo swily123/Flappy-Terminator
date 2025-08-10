@@ -1,12 +1,16 @@
+using Units.Enemy;
 using UnityEngine;
 
-public class ExitZone : MonoBehaviour
+namespace Environment
 {
-    private void OnTriggerExit2D(Collider2D collision)
+    public class ExitZone : MonoBehaviour
     {
-        if (collision.transform.TryGetComponent(out Enemy enemy))
+        private void OnCollisionExit2D(Collision2D other)
         {
-            enemy.Hit();
+            if (other.transform.TryGetComponent(out Enemy enemy))
+            {
+                enemy.Hit();
+            }
         }
     }
 }

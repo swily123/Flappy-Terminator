@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
 
-public class ScoreViewer : MonoBehaviour
+namespace ScoreSystem
 {
-    [SerializeField] private TextMeshProUGUI _scoreText;
-
-    public void ChangeValue(int value)
+    public class ScoreViewer : MonoBehaviour
     {
-        _scoreText.text = value.ToString();
+        [SerializeField] private TextMeshProUGUI _scoreText;
+
+        public void ChangeValue(int value)
+        {
+            _scoreText.text = value.ToString();
+        }
     }
 }

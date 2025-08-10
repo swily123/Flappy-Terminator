@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public static class EnemyAnimatorData
+namespace Units.Enemy
 {
-    public static class Params
+    public static class EnemyAnimatorData
     {
-        public static readonly int Shoot = Animator.StringToHash(nameof(Shoot));
-        public static readonly int IsMoving = Animator.StringToHash(nameof(IsMoving));
+        public static class Params
+        {
+            public static readonly int Shoot = Animator.StringToHash(nameof(Shoot));
+            public static readonly int IsMoving = Animator.StringToHash(nameof(IsMoving));
+        }
     }
 }

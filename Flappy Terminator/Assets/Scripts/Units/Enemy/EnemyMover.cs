@@ -1,34 +1,38 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemyMover : MonoBehaviour
+namespace Units.Enemy
 {
-    [SerializeField] private EnemyAnimator _animator;
-    [SerializeField] private float _speed;
-
-    private Coroutine _coroutine;
-
-    public void Move()
+    public class EnemyMover : MonoBehaviour
     {
-        _animator.SetMovingAnimation(true);
-        _coroutine = StartCoroutine(Moving());
-    }
+        [SerializeField] private EnemyAnimator _animator;
+        [SerializeField] private float _speed;
 
-    public void Stop()
-    {
-        if (_coroutine != null)
+        private Coroutine _coroutine;
+
+        public void Move()
         {
-            StopCoroutine(_coroutine);
-            _animator.SetMovingAnimation(false);
+            Stop();
+            _animator.SetMovingAnimation(true);
+            _coroutine = StartCoroutine(Moving());
         }
-    }
 
-    private IEnumerator Moving()
-    {
-        while (enabled)
+        public void Stop()
         {
-            transform.Translate(Vector3.left * Time.deltaTime * _speed);
-            yield return null;
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+                _animator.SetMovingAnimation(false);
+            }
+        }
+
+        private IEnumerator Moving()
+        {
+            while (enabled)
+            {
+                transform.Translate(Vector3.left * (Time.deltaTime * _speed));
+                yield return null;
+            }
         }
     }
 }

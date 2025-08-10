@@ -1,4 +1,7 @@
+using Windows;
+using ScoreSystem;
 using Spawners;
+using Units.Player;
 using UnityEngine;
 
 public class GameInstruction : MonoBehaviour

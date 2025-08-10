@@ -1,15 +1,18 @@
 using UnityEngine;
 
-public class BirdTracker : MonoBehaviour
+namespace Units.Player
 {
-    [SerializeField] private Bird _bird;
-
-    private float _xOffset = 5f;
-    private float _zOffset = -10;
-
-    private void LateUpdate()
+    public class BirdTracker : MonoBehaviour
     {
-        Vector3 birdPosition = new Vector3(_bird.transform.position.x + _xOffset, 0, _zOffset);
-        transform.position = birdPosition;
+        [SerializeField] private Bird _bird;
+
+        private const float XOffset = 5f;
+        private const float ZOffset = -10;
+
+        private void LateUpdate()
+        {
+            Vector3 birdPosition = new Vector3(_bird.transform.position.x + XOffset, 0, ZOffset);
+            transform.position = birdPosition;
+        }
     }
 }
