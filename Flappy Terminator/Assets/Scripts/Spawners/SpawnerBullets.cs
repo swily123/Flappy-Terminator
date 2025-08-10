@@ -1,47 +1,50 @@
-using Spawners;
 using System;
 using System.Collections.Generic;
+using Gun;
 using UnityEngine;
 
-public class SpawnerBullets : Spawner<Bullet>
+namespace Spawners
 {
-    public event Action EnemyHitted;
-
-    private List<Bullet> _activeBullets = new List<Bullet>();
-
-    public void SpawnBulletWithDirection(Vector3 direction)
+    public class SpawnerBullets : Spawner<Bullet>
     {
-        Bullet bullet = GetObject();
-        bullet.DespawnRequested += DespawnBullet;
-        bullet.EnemyHitted += HandlerHit;
-        bullet.GoDirection(direction);
-        _activeBullets.Add(bullet);
-    }
+        public event Action EnemyHitted;
 
-    public void DisableAllActiveBullets()
-    {
-        foreach (Bullet activeBullet in _activeBullets)
+        private List<Bullet> _activeBullets = new List<Bullet>();
+
+        public void SpawnBulletWithDirection(Vector3 direction)
         {
-            activeBullet.StopMoving();
-            activeBullet.DespawnRequested -= DespawnBullet;
-            activeBullet.EnemyHitted -= HandlerHit;
-            ReleaseObject(activeBullet);
+            Bullet bullet = GetObject();
+            bullet.DespawnRequested += DespawnBullet;
+            bullet.EnemyHitted += HandlerHit;
+            bullet.GoDirection(direction);
+            _activeBullets.Add(bullet);
         }
 
-        _activeBullets.Clear();
-    }
+        public void DisableAllActiveBullets()
+        {
+            foreach (Bullet activeBullet in _activeBullets)
+            {
+                activeBullet.StopMoving();
+                activeBullet.DespawnRequested -= DespawnBullet;
+                activeBullet.EnemyHitted -= HandlerHit;
+                ReleaseObject(activeBullet);
+            }
 
-    private void DespawnBullet(Bullet bullet)
-    {
-        bullet.StopMoving();
-        bullet.DespawnRequested -= DespawnBullet;
-        bullet.EnemyHitted -= HandlerHit;
-        ReleaseObject(bullet);
-        _activeBullets.Remove(bullet);
-    }
+            _activeBullets.Clear();
+        }
 
-    private void HandlerHit()
-    {
-        EnemyHitted?.Invoke();
+        private void DespawnBullet(Bullet bullet)
+        {
+            bullet.StopMoving();
+            bullet.DespawnRequested -= DespawnBullet;
+            bullet.EnemyHitted -= HandlerHit;
+            ReleaseObject(bullet);
+            _activeBullets.Remove(bullet);
+        }
+
+        private void HandlerHit()
+        {
+            EnemyHitted?.Invoke();
+        }
     }
 }

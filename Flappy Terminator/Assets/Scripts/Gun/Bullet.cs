@@ -2,51 +2,54 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace Gun
 {
-    [SerializeField] private float _speed;
-
-    public event Action<Bullet> DespawnRequested;
-    public event Action EnemyHitted;
-
-    private Coroutine _coroutine;
-
-    public void GoDirection(Vector3 direction)
+    public class Bullet : MonoBehaviour
     {
-        _coroutine = StartCoroutine(Moving(direction));
-    }
+        [SerializeField] private float _speed;
 
-    public void StopMoving()
-    {
-        StopCoroutine(_coroutine);
-    }
+        public event Action<Bullet> DespawnRequested;
+        public event Action EnemyHitted;
 
-    private IEnumerator Moving(Vector3 direction)
-    {
-        transform.right = direction;
+        private Coroutine _coroutine;
 
-        while (enabled)
+        public void GoDirection(Vector3 direction)
         {
-            transform.Translate(Vector2.right * Time.deltaTime * _speed);
-            yield return null;
+            _coroutine = StartCoroutine(Moving(direction));
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<Barrier>(out _))
+        public void StopMoving()
         {
-            DespawnRequested?.Invoke(this);
+            StopCoroutine(_coroutine);
         }
-        else if (collision.TryGetComponent(out IHittable hittableObject))
+
+        private IEnumerator Moving(Vector3 direction)
         {
-            if (collision.TryGetComponent<Enemy>(out _))
+            transform.right = direction;
+
+            while (enabled)
             {
-                EnemyHitted?.Invoke();
+                transform.Translate(Vector2.right * (Time.deltaTime * _speed));
+                yield return null;
             }
+        }
 
-            hittableObject.Hit();
-            DespawnRequested?.Invoke(this);
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<Barrier>(out _))
+            {
+                DespawnRequested?.Invoke(this);
+            }
+            else if (collision.TryGetComponent(out IHittable hittableObject))
+            {
+                if (collision.TryGetComponent<Enemy>(out _))
+                {
+                    EnemyHitted?.Invoke();
+                }
+
+                hittableObject.Hit();
+                DespawnRequested?.Invoke(this);
+            }
         }
     }
 }

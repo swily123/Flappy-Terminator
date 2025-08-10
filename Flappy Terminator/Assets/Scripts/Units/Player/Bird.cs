@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bird : MonoBehaviour, IHittable
 {
-    [SerializeField] private Game _game;
+    [SerializeField] private GameInstruction _game;
 
     private Rigidbody2D _rigidbody;
 
@@ -24,5 +24,13 @@ public class Bird : MonoBehaviour, IHittable
         transform.rotation = Quaternion.identity;
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = 0;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.TryGetComponent<Platform>(out _))
+        {
+            _game.GameOver();
+        }
     }
 }

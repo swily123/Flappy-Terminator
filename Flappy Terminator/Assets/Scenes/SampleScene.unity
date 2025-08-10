@@ -133,8 +133,9 @@ GameObject:
   - component: {fileID: 4459716}
   - component: {fileID: 4459719}
   - component: {fileID: 4459718}
-  - component: {fileID: 4459720}
   - component: {fileID: 4459721}
+  - component: {fileID: 4459720}
+  - component: {fileID: 4459722}
   m_Layer: 0
   m_Name: Header
   m_TagString: Untagged
@@ -293,6 +294,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &4459722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4459715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed256fa711eba6d4d9624177c9671e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8577448
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,6 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gunAnimator: {fileID: 8577453}
   _inputReader: {fileID: 1785129680}
+  _mouseTracker: {fileID: 1785129684}
   _spawnerBullets: {fileID: 2072792784}
 --- !u!114 &8577453
 MonoBehaviour:
@@ -576,8 +590,8 @@ GameObject:
   - component: {fileID: 439753908}
   - component: {fileID: 439753913}
   - component: {fileID: 439753912}
-  - component: {fileID: 439753911}
   - component: {fileID: 439753910}
+  - component: {fileID: 439753911}
   m_Layer: 0
   m_Name: Right
   m_TagString: Untagged
@@ -2099,8 +2113,8 @@ GameObject:
   - component: {fileID: 1666451182}
   - component: {fileID: 1666451185}
   - component: {fileID: 1666451184}
-  - component: {fileID: 1666451183}
   - component: {fileID: 1666451186}
+  - component: {fileID: 1666451183}
   - component: {fileID: 1666451187}
   m_Layer: 0
   m_Name: Left
@@ -2283,8 +2297,9 @@ GameObject:
   - component: {fileID: 1726014084}
   - component: {fileID: 1726014087}
   - component: {fileID: 1726014086}
-  - component: {fileID: 1726014085}
   - component: {fileID: 1726014088}
+  - component: {fileID: 1726014085}
+  - component: {fileID: 1726014089}
   m_Layer: 0
   m_Name: Footer
   m_TagString: Untagged
@@ -2443,6 +2458,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 7
+--- !u!114 &1726014089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726014083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed256fa711eba6d4d9624177c9671e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1785129679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,6 +2481,8 @@ GameObject:
   - component: {fileID: 1785129681}
   - component: {fileID: 1785129682}
   - component: {fileID: 1785129680}
+  - component: {fileID: 1785129683}
+  - component: {fileID: 1785129684}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -2473,8 +2502,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 522c9c53e4b024441a7ff42d2bc48529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 519420031}
-  _cursorTexture: {fileID: 2800000, guid: 1256cc37ee3430342875bf291fd6a8ac, type: 3}
 --- !u!4 &1785129681
 Transform:
   m_ObjectHideFlags: 0
@@ -2504,11 +2531,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bird: {fileID: 1591350525}
   _inputReader: {fileID: 1785129680}
+  _cursorChanger: {fileID: 1785129683}
   _startScreen: {fileID: 1123996068}
   _scoreCounter: {fileID: 8577454}
   _endGameScreen: {fileID: 1094608646}
   _spawnerEnemies: {fileID: 694900737}
   _playerSpawnersBullets: {fileID: 2072792784}
+--- !u!114 &1785129683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785129679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d488395714ea89e40b0614dbbbac9aa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cursorTexture: {fileID: 2800000, guid: 1256cc37ee3430342875bf291fd6a8ac, type: 3}
+--- !u!114 &1785129684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785129679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a038655f2ad3fe14ebc90c1cb888d2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _camera: {fileID: 519420031}
 --- !u!1 &2072792782
 GameObject:
   m_ObjectHideFlags: 0
